@@ -8,4 +8,9 @@
  *
  * Main module of the application.
  */
-angular.module('insightExplorer', ['ngAnimate', 'ngResource', 'ngRoute']);
+angular
+  .module('insightExplorer', [
+    'ngAnimate',
+    'ngResource',
+    'ngRoute'
+  ]);
