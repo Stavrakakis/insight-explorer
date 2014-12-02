@@ -1,28 +1,58 @@
-/* Space out content a bit */
-body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+.navbar-default {
+    background-color: #323232;
+    border-color: white;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+.navbar {
+    margin-bottom: 0;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-    display: flex;
+.nav-pills > li > a {
+    color: white;
 }
 
-.nav-bar {
-    flex-grow: 1;
+.nav-pills > li > a:hover {
+    background-color: #bdd7e7;
+    color: white;
+}
+
+.buttons-container {
     margin-left: 5px;
-    margin-bottom: 5px;
     margin-top: 5px;
+    padding-left: 255px ;
+}
+
+.navbar-brand {
+    padding: 5px;
+    padding-left: 20px;
+
+}
+
+.navbar-brand > img {
+    height: 40px;
+    width: auto;
+}
+
+
+.sidebar {
+    background-color: #bdd7e7;
+    width: 270px;
+}
+
+.wrapper > div {
+    border: 1px solid white;
+}
+
+.charts {
+    height: 100vh;
+    flex-grow: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
 }
 
 .title {
@@ -54,26 +84,6 @@ body {
 
 }
 
-.content {
-    width: 75%;
-    margin: auto;
-}
-.wrapper {
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
-    display: flex;
-    justify-content: center;
-}
-
-.sidebar {
-    border-right: 1px solid #e5e5e5;
-    flex-grow: 1;
-    text-align: center;
-}
-
 /* Main marketing message and sign up button */
 .jumbotron {
   text-align: center;
@@ -101,10 +111,7 @@ body {
     padding-left: 0;
     padding-right: 0;
   }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
+
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
