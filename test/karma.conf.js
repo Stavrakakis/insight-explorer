@@ -18,13 +18,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-route/angular-route.js',
-      'app/*.js',
-      'app/charts/**/*.js',
+      'http://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.11/crossfilter.min.js',
+      'http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js',
+      'http://cdnjs.cloudflare.com/ajax/libs/insightjs/1.3.0/insight.min.js',
+      'app/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],

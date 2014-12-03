@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Column Chart",
+        "type": "SimpleColumnChart"
+    },
+    {
+        "name": "Row Chart",
+        "type": "SimpleRowChart"
+    },
+    {
+        "name": "Line Chart",
+        "type": "SimpleLineChart"
+    },
+    {
+        "name": "Bubble Chart",
+        "type": "SimpleBubbleChart"
+    },
+    {
+        "name": "Marker Chart",
+        "type": "SimpleMarkerChart"
+    },
+    {
+        "name": "Scatter Chart",
+        "type": "SimpleScatterChart"
+    }
+]

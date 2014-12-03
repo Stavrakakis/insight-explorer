@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
         <!-- endbuild -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/insightjs/1.3.0/insight.min.css">
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
@@ -25,27 +26,42 @@
 
         <div class="wrapper">
 
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="logo-area"></div>
+            <nav class="navbar navbar-default" role="navigation"  ng-controller="NavCtrl">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="#">
                             <img alt="Brand" src="./images/InsightBanner.png">
                         </a>
                     </div>
-                    <div class="buttons-container" ng-controller="NavCtrl">
+                    <div class="buttons-container">
                         <ul class="nav nav-pills nav-bar" >
-                            <li ng-class="{active: isActive('')}"><a ng-href="/">Home</a></li>
-                            <li ng-class="{active: isActive('/about')}"><a ng-href="#/about">About</a></li>
-                            <li ng-class="{active: isActive('/contact')}"><a ng-href="#/contact">Contact</a></li>
+                            <li ng-class="{active: isActive('/')}"><a ng-href="/">Home</a></li>
+                            <li ng-class="{active: isActive('/import')}"><a ng-href="#/import">Import Data</a></li>
                         </ul>
+                    </div>
+                </div>
+                <div class='import-container'  ng-show="isActive('/import')" ng-cloak>
+                    <div id="dropbox-button"></div>
+                    <p >or provide your own URL</p>
+                    <div id="import-box">
+                        <form ng-submit="submitUrl()">
+                            <input type="url" name="urlForm" ng-model="url" required/>
+                        </form>
                     </div>
                 </div>
             </nav>
 
             <div class="content">
-                <div class="sidebar">
-                    <h3>Chart Navigation</h3>
+                <div class="sidebar" ng-controller="SideCtrl">
+                    <div class="sidebar-options">
+                        <button class="btn btn-default" ng-repeat="dataField in dataFields | filter: filterByDataProperties" ng-click="setProperty(dataField)" ng-bind="dataField" ng-cloak></button>
+                    </div>
+
+                    <div class="sidebar-options">
+                        <button class="btn btn-default" ng-repeat="chart in charts | filter: filterByChosenProperties" ng-click="selectChart(chart.type)" ng-bind="chart.name" ng-cloak></button>
+                    </div>
+
+
                 </div>
 
                 <div class="charts">
@@ -71,10 +87,16 @@
         <script src="bower_components/angular-route/angular-route.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.11/crossfilter.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/insightjs/1.3.0/insight.min.js"></script>
+        <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="zvy44ovo0jkzdy3"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="app.module.js"></script>
+        <script src="app.routes.js"></script>
         <script src="charts/main.controller.js"></script>
+        <script src="sidebar/sidebar.controller.js"></script>
         <script src="navbar/navbar.controller.js"></script>
         <!-- endbuild -->
     </body>

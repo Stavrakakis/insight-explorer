@@ -1,27 +1,24 @@
 /**
  * Created by tferguson on 20/11/2014.
  */
+(function() {
 
-angular.module('insightExplorer')
-    .config(function ($routeProvider) {
+    'use strict';
 
-        'use strict';
+    angular.module('insightExplorer')
+        .config(function ($routeProvider) {
 
-        $routeProvider
-            .when('#', {
-                templateUrl: '',
-                controller: ''
-            })
-            .when('#/about', {
-                templateUrl: '',
-                controller: ''
-            })
-            .when('#/contact', {
-                templateUrl: '',
-                controller: ''
-            })
-            .otherwise({
-                redirectTo: '#'
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'charts/chart.html',
+                    controller: 'MainCtrl'
+                })
+                .when('/import', {
+                    templateUrl: 'charts/chart.html',
+                    controller: 'MainCtrl'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
             });
-    });
-
+})();
