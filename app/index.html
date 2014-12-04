@@ -35,7 +35,7 @@
                     </div>
                     <div class="buttons-container">
                         <ul class="nav nav-pills nav-bar" >
-                            <li ng-class="{active: isActive('/')}"><a ng-href="/">Home</a></li>
+                            <li ng-class="{active: isActive('/')}"><a ng-href="#/">Home</a></li>
                             <li ng-class="{active: isActive('/import')}"><a ng-href="#/import">Import Data</a></li>
                         </ul>
                     </div>
@@ -54,11 +54,11 @@
             <div class="content">
                 <div class="sidebar" ng-controller="SideCtrl">
                     <div class="sidebar-options">
-                        <button class="btn btn-default" ng-repeat="dataField in dataFields | filter: filterByDataProperties" ng-click="setProperty(dataField)" ng-bind="dataField" ng-cloak></button>
+                        <button class="btn btn-default" ng-repeat="dataField in dataFields" ng-disabled="selected[$index] === $index" ng-click="select($index); setProperty(dataField)" ng-bind="dataField" ng-cloak></button>
                     </div>
 
                     <div class="sidebar-options">
-                        <button class="btn btn-default" ng-repeat="chart in charts | filter: filterByChosenProperties" ng-click="selectChart(chart.type)" ng-bind="chart.name" ng-cloak></button>
+                        <button class="btn btn-default" ng-repeat="chart in charts" ng-show="dataFields.length > 0" ng-disabled="enableByChosenProperties(chart)" ng-click="selectChart(chart.type)" ng-bind="chart.name" ng-cloak></button>
                     </div>
 
 

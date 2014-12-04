@@ -13,6 +13,7 @@
         $scope.dataFields = [];
         $scope.dataProperties = [];
         $scope.charts = [];
+        $scope.selected = [];
 
         $http.get('sidebar/charts.json')
             .success(function (data) {
@@ -32,12 +33,17 @@
             $scope.dataProperties.push(dataField);
         };
 
-        $scope.filterByDataProperties = function (value) {
+        $scope.select = function(item) {
 
-            return !(value === $scope.dataProperties[0] || value === $scope.dataProperties[1]);
+            $scope.selected[item] = item;
         };
 
-        $scope.filterByChosenProperties = function (value) {
+        $scope.filterByChosenProperties = function () {
+
+            return $scope.dataProperties.length >= 2;
+        };
+
+        $scope.enableByChosenProperties = function (value) {
 
             var filterByNumProperties = value.type === 'SimpleBubbleChart' ? $scope.dataProperties.length >= 3 : $scope.dataProperties.length >= 2;
 
@@ -45,10 +51,10 @@
 
                 var isOrdinal = !Number(self.data[0][$scope.dataProperties[0]]);
 
-                return isOrdinal ? !(value.type === 'SimpleLineChart' || value.type === 'SimpleScatterChart') : true;
+                return isOrdinal ? value.type === 'SimpleLineChart' || value.type === 'SimpleScatterChart' : false;
             }
 
-            return false;
+            return true;
         };
 
         $scope.selectChart = function (chartType) {
