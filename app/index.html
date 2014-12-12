@@ -54,7 +54,10 @@
             <div class="content">
                 <div class="sidebar" ng-controller="SideCtrl">
                     <div class="sidebar-options">
-                        <button class="btn btn-default" ng-repeat="dataField in dataFields" ng-disabled="selected[$index] === $index" ng-click="select($index); setProperty(dataField)" ng-bind="dataField" ng-cloak></button>
+                        <button class="btn" ng-repeat="dataField in dataFields" ng-click="select($index, dataField)" ng-class="{keySelected: isSelected($index, 0), valueSelected: isSelected($index, 1), radiusSelected: isSelected($index, 2)}" ng-cloak>
+                            <span class="dataField" ng-bind="dataField"></span>
+                            <span class="glyphicon glyphicon-list"></span>
+                        </button>
                     </div>
 
                     <div class="sidebar-options">

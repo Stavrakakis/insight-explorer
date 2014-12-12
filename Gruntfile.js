@@ -45,7 +45,7 @@ module.exports = function (grunt) {
                 }
             },
             jsTest: {
-                files: ['test/spec/{,*/}*.js'],
+                files: ['test/**/*.js'],
                 tasks: ['newer:jshint:test', 'karma']
             },
             styles: {
@@ -133,7 +133,7 @@ module.exports = function (grunt) {
                 options: {
                     jshintrc: 'test/.jshintrc'
                 },
-                src: ['test/spec/{,*/}*.js']
+                src: ['test/**/*.js']
             }
         },
 
@@ -377,6 +377,18 @@ module.exports = function (grunt) {
             }
         },
 
+        protractor: {
+            options: {
+                keepAlive: true,
+                noColor: false
+                },
+            all: {
+                options: {
+                    configFile: 'test/protractor.conf.js'
+                }
+            }
+        },
+
         //Commit dist and push to gh-pages
         buildcontrol: {
             options: {
@@ -390,6 +402,36 @@ module.exports = function (grunt) {
                     remote: 'https://github.com/tylerferguson/insight-explorer.git',
                     branch: 'gh-pages'
                 }
+            }
+        },
+
+        webdriver: {
+            start: function() {
+                var sys = require('sys');
+                var exec = require('child_process').exec;
+                var child;
+
+                child = exec('webdriver-manager start', function (error, stdout, stderr) {
+                    sys.print('stdout: ' + stdout);
+                    sys.print('stderr: ' + stderr);
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                });
+            },
+
+            kill: function() {
+                var sys = require('sys');
+                var exec = require('child_process').exec;
+                var child;
+
+                child = exec('curl http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer', function (error, stdout, stderr) {
+                    sys.print('stdout: ' + stdout);
+                    sys.print('stderr: ' + stderr);
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                });
             }
         }
     });
@@ -450,4 +492,15 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+
+    grunt.registerMultiTask('webdriver', 'A task that starts a selenium server', function() {
+        this.data();
+    });
+
+    grunt.registerTask('e2e-test', 'A task that runs protractor end-to-end tests.', function() {
+
+        grunt.task.run('webdriver:start');
+        grunt.task.run('protractor');
+        grunt.task.run('webdriver:kill');
+});
 };

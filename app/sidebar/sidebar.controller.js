@@ -15,32 +15,69 @@
         $scope.charts = [];
         $scope.selected = [];
 
+        self.prop = 0;
+
         $http.get('sidebar/charts.json')
             .success(function (data) {
                 $scope.charts = data;
             });
 
-        $scope.$on('dataReceived', function (event, args) {
-
-            self.data = args.data;
-            $scope.dataFields = Object.keys(self.data[0]);
-
-        });
-
-
-        $scope.setProperty = function (dataField) {
+        var setProperty = function (dataField) {
 
             $scope.dataProperties.push(dataField);
         };
 
-        $scope.select = function(item) {
+        var removeProperty = function(item) {
 
-            $scope.selected[item] = item;
+            $scope.dataProperties.splice($scope.selected[item].prop);
+
         };
 
-        $scope.filterByChosenProperties = function () {
+        var selectProperty = function(item) {
+            $scope.selected[item] = {
+                item: item,
+                prop: self.prop
+            };
+            self.prop++;
+        };
 
-            return $scope.dataProperties.length >= 2;
+        var deselectProperty = function(item) {
+
+            $scope.selected.forEach(function(element) {
+                if (element.prop > $scope.selected[item].prop) {
+                    $scope.selected[element.item] = {};
+                    self.prop--;
+                }
+            });
+            $scope.selected[item] = {};
+            self.prop--;
+
+        };
+
+        $scope.select = function(item, dataField) {
+
+            if($.isEmptyObject(($scope.selected[item]))) {
+
+                selectProperty(item);
+                setProperty(dataField);
+            } else {
+
+                removeProperty(item);
+                deselectProperty(item);
+            }
+
+        };
+
+
+        $scope.isSelected = function(index, prop) {
+
+            var selected = $scope.selected[index];
+
+            if (selected) {
+                return selected.item === index && selected.prop === prop;
+            }
+
+
         };
 
         $scope.enableByChosenProperties = function (value) {
@@ -65,6 +102,13 @@
                 dataProperties: $scope.dataProperties
             });
         };
+
+        $scope.$on('dataReceived', function (event, args) {
+
+            self.data = args.data;
+            $scope.dataFields = Object.keys(self.data[0]);
+
+        });
     }]);
 })();
 

@@ -17,6 +17,34 @@
     margin-right: 20px;
 }
 
+.btn {
+    display: flex;
+    background-color: #f8f8f8;
+    margin: 2px;
+}
+
+
+.btn > .glyphicon {
+    top: 2px;
+    width: 20px;
+}
+
+.dataField {
+    flex-grow: 1;
+}
+
+.keySelected {
+    background-color: rgba(0, 128, 0, 0.35);
+}
+
+.valueSelected {
+    background-color: rgba(255, 94, 0, 0.57);
+}
+
+.radiusSelected {
+    background-color: rgba(249, 24, 4, 0.59);
+}
+
 .navbar {
     margin-bottom: 0;
     color: white;
@@ -81,6 +109,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #f8f8f8;
 }
 
 .content {
