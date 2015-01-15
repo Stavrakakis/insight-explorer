@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
         <!-- endbuild -->
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/insightjs/1.3.0/insight.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/insightjs/1.4.0/insight.min.css">
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
@@ -25,7 +25,6 @@
         <![endif]-->
 
         <div class="wrapper">
-
             <nav class="navbar navbar-default" role="navigation"  ng-controller="NavCtrl">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -53,19 +52,39 @@
 
             <div class="content">
                 <div class="sidebar" ng-controller="SideCtrl">
-                    <div class="sidebar-options">
-                        <button class="btn" ng-repeat="dataField in dataFields" ng-click="select($index, dataField)" ng-class="{keySelected: isSelected($index, 0), valueSelected: isSelected($index, 1), radiusSelected: isSelected($index, 2)}" ng-cloak>
-                            <span class="dataField" ng-bind="dataField"></span>
-                            <span class="glyphicon glyphicon-list"></span>
-                        </button>
+                    <div class="sidebar-options-container">
+                        <div class="sidebar-options" ng-repeat="dataField in dataFields" ng-init="index = $index" >
+                            <div class = "property">
+                                <div class="btn"  ng-click="selectProperty(index)" ng-class="{selected: isSelectedProperty(index)}" ng-cloak>
+                                    <div class="dataField" ng-bind="dataField"></div>
+                                    <div class="glyphicon glyphicon-list" ng-click="listOptions(index, $event)" ></div>
+                                </div>
+                                <div class="property-options options-transition" ng-show="optionsListed(index)" ng-cloak>
+                                    <div ng-repeat="subProp in subProps" >
+                                        <div class="btn" ng-click="selectProperty(index, subProp)">
+                                            <span class="dataField ">{{dataField}} {{subProp}}</span>
+                                        </div>
+                                        <div class="dimension-selection" ng-show="isSelectedProperty(index, subProp)">
+                                            <div class="dimension" ng-repeat="dimension in dimensions">
+                                                <div class="btn" ng-click="selectDimension(index, dimension, dataField, subProp)" ng-class="isSelectedDimension(index, dimension, subProp)">{{dimension}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dimension-selection" ng-show="isSelectedProperty(index)" ng-cloak>
+                                <div class="dimension" ng-repeat="dimension in dimensions">
+                                    <div class="btn" ng-click="selectDimension(index, dimension, dataField)" ng-class="isSelectedDimension(index, dimension)">{{dimension}}</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="sidebar-options">
-                        <button class="btn btn-default" ng-repeat="chart in charts" ng-show="dataFields.length > 0" ng-disabled="enableByChosenProperties(chart)" ng-click="selectChart(chart.type)" ng-bind="chart.name" ng-cloak></button>
+                        <div class="btn btn-default" ng-repeat="chart in charts" ng-show="dataFields.length > 0" ng-disabled="enableByChosenProperties(chart)" ng-click="selectChart(chart.type)" ng-bind="chart.name" ng-cloak></div>
                     </div>
-
-
                 </div>
+
 
                 <div class="charts">
                     <div ng-view=""></div>
@@ -92,7 +111,7 @@
         <!-- endbuild -->
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.11/crossfilter.min.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/insightjs/1.3.0/insight.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/insightjs/1.4.0/insight.min.js"></script>
         <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="zvy44ovo0jkzdy3"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->

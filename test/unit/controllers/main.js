@@ -37,7 +37,11 @@ describe('Controller: MainCtrl', function () {
         rootScope.$broadcast('someEvent', {
             chartType: 'MockChart',
             data: [],
-            dataProperties: []
+            dimensions: {
+                key: {},
+                value: {},
+                radius: {}
+            }
         });
 
         expect($(element).is(':empty')).toBe(false);
@@ -45,14 +49,47 @@ describe('Controller: MainCtrl', function () {
         rootScope.$broadcast('chartSelected', {
             chartType: 'MockChart',
             data: [],
-            dataProperties: []
+            dimensions: {
+                key: {},
+                value: {},
+                radius: {}
+            }
         });
 
         expect($(element).is(':empty')).toBe(true);
     });
 
 
-    it('should draw a chart in the #chart div with arguments received if and only if it hears the event "chartSelected"', function() {
+    it('should draw a chart in the #chart div if and only if it hears the event "chartSelected"', function() {
+
+        rootScope.$broadcast('someEvent', {
+            chartType: 'MockChart',
+            data: [],
+            dimensions: {
+                key: {},
+                value: {},
+                radius: {}
+            }
+        });
+
+        expect(mockChart.draw).not.toHaveBeenCalled();
+
+        rootScope.$broadcast('chartSelected', {
+            chartType: 'MockChart',
+            data: [],
+            dimensions: {
+                key: {},
+                value: {},
+                radius: {}
+            }
+        });
+
+        expect(mockChart.build).toHaveBeenCalled();
+        expect(mockChart.draw).toHaveBeenCalled();
+
+    });
+
+    it('should draw a chart with the correct arguments', function() {
 
         var data = [
             {
@@ -67,22 +104,37 @@ describe('Controller: MainCtrl', function () {
             }
         ];
 
-        rootScope.$broadcast('someEvent', {
+        rootScope.$broadcast('chartSelected', {
             chartType: 'MockChart',
-            data: [],
-            dataProperties: []
+            data: data,
+            dimensions: {
+                key: {
+                    name: 'name'
+                },
+                value: {
+                    name: 'age'
+                },
+                radius: {}
+            }
         });
 
-        expect(mockChart.draw).not.toHaveBeenCalled();
+        expect(insight.MockChart).toHaveBeenCalledWith(data, '#chart', 'name', 'age', undefined);
 
         rootScope.$broadcast('chartSelected', {
             chartType: 'MockChart',
             data: data,
-            dataProperties: ['name', 'age']
+            dimensions: {
+                key: {
+                    name: 'name'
+                },
+                value: {
+                    name: 'age',
+                    groupingProperty: 'mean'
+                },
+                radius: {}
+            }
         });
 
-        expect(insight.MockChart).toHaveBeenCalledWith(data, '#chart', 'name', 'age');
-        expect(mockChart.build).toHaveBeenCalled();
-        expect(mockChart.draw).toHaveBeenCalled();
+        expect(insight.MockChart).toHaveBeenCalledWith(data, '#chart', 'name', 'age', 'mean');
     });
 });

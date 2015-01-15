@@ -17,32 +17,134 @@
     margin-right: 20px;
 }
 
+/*.btn {*/
+    /*display: flex;*/
+    /*flex-grow: 1;*/
+    /*background-color: #f8f8f8;*/
+    /*margin: 2px;*/
+/*}*/
+
 .btn {
     display: flex;
+    flex-grow: 1;
     background-color: #f8f8f8;
     margin: 2px;
+
+
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 
+/*.btn:focus.selected, .btn:hover.selected {*/
+    /*color: white;*/
+/*}*/
+
+.btn:focus.selected, .btn:hover.selected {
+    color: white;
+}
+
+
+/*.btn > .glyphicon {*/
+    /*top: 2px;*/
+    /*width: 20px;*/
+    /*color: rgba(0, 0, 0, 0.46);*/
+/*}*/
 
 .btn > .glyphicon {
     top: 2px;
     width: 20px;
+    color: rgba(0, 0, 0, 0.46);
 }
 
 .dataField {
     flex-grow: 1;
 }
 
-.keySelected {
+.property {
+    display: flex;
+}
+
+.property-options {
+    position: absolute;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+/*.property-options > .btn {*/
+    /*border: 1px solid rgba(128, 128, 128, 0.27);*/
+    /*flex-grow: 1;*/
+/*}*/
+
+.property-options .btn {
+    border: 1px solid rgba(128, 128, 128, 0.27);
+    flex-grow: 1;
+}
+
+
+/*.property-options .dimension {*/
+    /*border: 1px solid rgba(128, 128, 128, 0.27);*/
+/*}*/
+
+.dimension-selection {
+    display: flex;
+    height: 17px;
+    flex-grow: 1;
+}
+
+.dimension {
+    flex-grow: 1;
+    font-size: 10px;
+    line-height: .3;
+    display: flex;
+    justify-content: center;
+}
+
+.dimension > .btn {
+    font-size: 10px;
+    line-height: .3;
+    justify-content: center;
+}
+
+.nav > .active {
+    opacity: 1;
+}
+
+.key {
     background-color: rgba(0, 128, 0, 0.35);
 }
 
-.valueSelected {
-    background-color: rgba(255, 94, 0, 0.57);
+.value {
+    background-color: rgba(249, 24, 4, 0.35);
 }
 
-.radiusSelected {
-    background-color: rgba(249, 24, 4, 0.59);
+.radius {
+    background-color: rgba(255, 94, 0, 0.35);
+}
+
+.options-transition {
+    transition: .25s linear all;
+    transform: translateX(25px);
+    opacity: 1;
+}
+
+.options-transition.ng-hide {
+    transform: translateX(-239px);
+    opacity: 0;
+}
+
+.selected {
+    background-color: #428bca;
+    color: white;
 }
 
 .navbar {
@@ -82,7 +184,6 @@
     width: auto;
 }
 
-
 .sidebar {
     background-color: #bdd7e7;
     width: 270px;
@@ -91,10 +192,13 @@
     align-items: center;
 }
 
-.sidebar-options {
+.sidebar-options-container {
+    width: 90%;
     padding-top: 50px;
     padding-bottom: 50px;
-    width: 90%;
+}
+
+.sidebar-options {
     display: flex;
     flex-direction: column;
 }
@@ -121,60 +225,42 @@
 }
 
 .header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
 }
 
 /* Custom page footer */
 .footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
 }
 
 /* Customize main container */
 @media (min-width: 768px) {
-  .main-container {
-      flex-grow: 5;
+    .main-container {
+        flex-grow: 5;
 
-  }
+    }
 }
 .main-container-narrow > hr {
-  margin: 30px 0;
+    margin: 30px 0;
 
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
 
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
 }
